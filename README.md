@@ -2,6 +2,8 @@
 
 Making a church app clone in Flutter - **In Progress**
 
+Kanguka is a program to spiritually awaken Christians to allow the Holy Spirit to carry out God's will. I am convinced that this is the time of awakening and Jesus wants to recover many souls for the kingdom of God. Chris Ndikumana
+
 ## Screenshots
 
 <img src='https://image.winudf.com/v2/image1/Y29tLmthbmd1a2EubmF0aXZlX3NjcmVlbl8xXzE1NTM1MTI5MTVfMDA3/screen-1.jpg?fakeurl=1&type=.jpg' align='left' width='30%'>
