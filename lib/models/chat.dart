@@ -9,13 +9,15 @@ class ChatModel {
 
   static final List<ChatModel> dummyData = [
     ChatModel(
-      avatarUrl: "https://randomuser.me/api/portraits/men/83.jpg",
+      avatarUrl:
+          "https://yt3.ggpht.com/a/AATXAJzmYgjAFevozmRp6rVDkT767DBGpc3kop_C7A=s288-c-k-c0xffffffff-no-rj-mo",
       name: "Communiqué concernant youtube pour les francophones".toUpperCase(),
       datetime: "2018-12-19 20:18",
       message: "How about meeting tomorrow?",
     ),
     ChatModel(
-      avatarUrl: "https://randomuser.me/api/portraits/men/83.jpg",
+      avatarUrl:
+          "https://yt3.ggpht.com/a/AATXAJzmYgjAFevozmRp6rVDkT767DBGpc3kop_C7A=s288-c-k-c0xffffffff-no-rj-mo",
       name: "Prière du réseau easter 12/.4/2020 (4:00)".toUpperCase(),
       datetime: "2018-12-19 19:22",
       message: "I love that idea, it's great!",
@@ -27,7 +29,8 @@ class ChatModel {
       message: "I wasn't aware of that. Let me check",
     ),
     ChatModel(
-      avatarUrl: "https://randomuser.me/api/portraits/men/83.jpg",
+      avatarUrl:
+          "https://yt3.ggpht.com/a/AATXAJzmYgjAFevozmRp6rVDkT767DBGpc3kop_C7A=s288-c-k-c0xffffffff-no-rj-mo",
       name: "Joe",
       datetime: "2018-12-19 11:05",
       message: "Flutter just release 1.0 officially. Should I go for it?",
@@ -39,7 +42,8 @@ class ChatModel {
       message: "It totally makes sense to get some extra day-off.",
     ),
     ChatModel(
-      avatarUrl: "https://randomuser.me/api/portraits/men/83.jpg",
+      avatarUrl:
+          "https://yt3.ggpht.com/a/AATXAJzmYgjAFevozmRp6rVDkT767DBGpc3kop_C7A=s288-c-k-c0xffffffff-no-rj-mo",
       name: "Williams",
       datetime: "2018-12-19 08:15",
       message: "It has been re-scheduled to next Saturday 7.30pm",

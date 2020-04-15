@@ -2,7 +2,14 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:flutter/services.dart';
+import 'package:kanguka/models/chat.dart';
+import 'package:kanguka/screens/about_screen.dart';
+import 'package:kanguka/screens/archives_screen.dart';
+import 'package:kanguka/screens/gallery_screen.dart';
+import 'package:kanguka/screens/setting_screen.dart';
 import 'package:kanguka/utils/styles.dart';
+import 'package:kanguka/widgets/appBar.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,56 +37,96 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  String currentProfilePic =
+      "https://lh3.googleusercontent.com/-CDfv6S7MvHaGgHvZqx6wQqYYcJ5LjhJftMYIxNC_XRfbbDNAxf7Q_SpnYTkRzoDP8U_=s180-rw";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0.0,
-        // leading: IconButton(
-        //   icon: Icon(Icons.refresh),
-        //   onPressed: () {},
-        // ),
-        title: Text('Emissions', style: TextStyle(color: Colors.white)),
-        actions: <Widget>[
-          Container(
-              width: 45.0,
-              child: Center(
-                child: GestureDetector(
-                  child: Text("KI"),
-                ),
-              )),
-          Container(
-            width: 45.0,
-            child: Center(
-              child: GestureDetector(child: Text("FR")),
-            ),
-          ),
-          Container(
-            width: 45.0,
-            child: Center(
-              child: GestureDetector(child: Text("EN")),
-            ),
-          ),
-        ],
-      ),
+      appBar: appBar('Emissions'),
       drawer: Drawer(
         child: ListView(
-          padding: EdgeInsets.zero,
           children: <Widget>[
-            DrawerHeader(
-              child: Text('Drawer Header'),
+            UserAccountsDrawerHeader(
+              accountEmail: Text(
+                  "Réveillez-vous en priant et en louant \nle Seigneur tous les jours."),
+              accountName: Text(
+                "Kanguka",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              currentAccountPicture: GestureDetector(
+                child: CircleAvatar(
+                  backgroundImage: AssetImage("assets/images/kanguka_logo.png"),
+                ),
+                onTap: () => print("This is Kanguka logo."),
+              ),
               decoration: BoxDecoration(
-                color: Colors.blue,
+                image: DecorationImage(
+                    image: AssetImage('assets/images/header_image.jpg'),
+                    fit: BoxFit.fill),
               ),
             ),
             ListTile(
-              title: Text('Item 1'),
-              onTap: () {},
+              title: Text("Emissions"),
+              leading: Icon(Icons.mic),
+              onTap: () => Navigator.of(context).pop(),
             ),
             ListTile(
-              title: Text('Item 2'),
-              onTap: () {},
+              title: Text("Galerie"),
+              leading: Icon(Icons.image),
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => GalleryScreen(),
+                  ),
+                );
+              },
             ),
+            ListTile(
+              title: Text("Archives"),
+              leading: Icon(Icons.archive),
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => ArchivesScreen(),
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              title: Text("Témoigner"),
+              leading: Icon(Icons.people),
+              onTap: () {
+                Navigator.of(context).pop();
+                _neverSatisfied();
+              },
+            ),
+            ListTile(
+              title: Text("A propos"),
+              leading: Icon(Icons.info),
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => AboutScreen(),
+                  ),
+                );
+              },
+            ),
+            Divider(),
+            ListTile(
+              title: Text("Téléchargements"),
+              leading: Icon(Icons.get_app),
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => SettingScreen(),
+                  ),
+                );
+              },            ),
           ],
         ),
       ),
@@ -93,46 +140,51 @@ class _HomeScreenState extends State<HomeScreen> {
               ChatModel _model = ChatModel.dummyData[index];
               return Column(
                 children: <Widget>[
-                  index != 0
-                      ? Divider(
-                          height: 12.0,
-                        )
-                      : Container(),
+                  index != 0 ? Divider(height: 12.0) : Container(),
                   ListTile(
-                      leading: CircleAvatar(
-                        radius: 24.0,
-                        backgroundImage: NetworkImage(_model.avatarUrl),
-                      ),
-                      title: Text(_model.name),
-                      subtitle: Row(
-                        children: [
-                          Text(
-                            _model.datetime,
-                            style: TextStyle(fontSize: 12.0),
-                          ),
-                          SizedBox(
-                            width: 8,
-                          ),
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.cloud_download,
-                                color: AppTheme.secondaryColor,
-                                size: 14,
-                              ),
-                              Text("Téléchargé",
-                                  style: TextStyle(
-                                      color: AppTheme.secondaryColor, fontSize: 12))
-                            ],
-                          )
-                        ],
-                      )),
+                    leading: CircleAvatar(
+                      radius: 24.0,
+                      backgroundImage: NetworkImage(_model.avatarUrl),
+                    ),
+                    title: Text(_model.name),
+                    subtitle: Row(
+                      children: [
+                        Text(
+                          _model.datetime,
+                          style: TextStyle(fontSize: 12.0),
+                        ),
+                        SizedBox(
+                          width: 8,
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.get_app,
+                              color: AppTheme.secondaryColor,
+                              size: 14,
+                            ),
+                            Text(
+                              "Téléchargé",
+                              style: TextStyle(
+                                  color: AppTheme.secondaryColor, fontSize: 12),
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
                 ],
               );
             },
           ),
           onRefresh: _onRefresh,
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).primaryColor,
+        onPressed: _neverSatisfied,
+        child: Icon(Icons.perm_phone_msg),
+        tooltip: 'Témoigner',
       ),
     );
   }
@@ -144,52 +196,53 @@ class _HomeScreenState extends State<HomeScreen> {
     });
     return completer.future;
   }
-}
 
-class ChatModel {
-  final String avatarUrl;
-  final String name;
-  final String datetime;
-  final String message;
+  Future<void> _neverSatisfied() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Témoigner'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('Voulez-vous partager votre témoignage?'),
+                Text(
+                  'Vous nous enverrez un audio sur whatsapp!',
+                  style: TextStyle(fontSize: 14),
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              textColor: Theme.of(context).primaryColor,
+              child: Text('Annuler'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            FlatButton(
+              textColor: Theme.of(context).primaryColor,
+              child: Text('Oui'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                _launchURL();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
-  ChatModel({this.avatarUrl, this.name, this.datetime, this.message});
-
-  static final List<ChatModel> dummyData = [
-    ChatModel(
-      avatarUrl: "https://randomuser.me/api/portraits/men/83.jpg",
-      name: "Communiqué concernant youtube pour les francophones".toUpperCase(),
-      datetime: "2018-12-19 20:18",
-      message: "How about meeting tomorrow?",
-    ),
-    ChatModel(
-      avatarUrl: "https://randomuser.me/api/portraits/men/83.jpg",
-      name: "Prière du réseau easter 12/.4/2020 (4:00)".toUpperCase(),
-      datetime: "2018-12-19 19:22",
-      message: "I love that idea, it's great!",
-    ),
-    ChatModel(
-      avatarUrl: "https://p9.storage.canalblog.com/96/34/1660541/125180306.jpg",
-      name: "Kanguka de Mardi le 14/04/2020 (4:00)",
-      datetime: "2020-04-14 04:00",
-      message: "I wasn't aware of that. Let me check",
-    ),
-    ChatModel(
-      avatarUrl: "https://randomuser.me/api/portraits/men/83.jpg",
-      name: "Joe",
-      datetime: "2018-12-19 11:05",
-      message: "Flutter just release 1.0 officially. Should I go for it?",
-    ),
-    ChatModel(
-      avatarUrl: "https://p9.storage.canalblog.com/96/34/1660541/125180306.jpg",
-      name: "Mark",
-      datetime: "2018-12-19 09:46",
-      message: "It totally makes sense to get some extra day-off.",
-    ),
-    ChatModel(
-      avatarUrl: "https://randomuser.me/api/portraits/men/83.jpg",
-      name: "Williams",
-      datetime: "2018-12-19 08:15",
-      message: "It has been re-scheduled to next Saturday 7.30pm",
-    ),
-  ];
+  _launchURL() async {
+    const url = 'https://wa.me/25776801327';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 }

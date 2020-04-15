@@ -90,15 +90,15 @@ class AppTheme {
     cursorColor: lightAccent,
     scaffoldBackgroundColor: lightPrimary,
     fontFamily: 'TitilliumWeb',
-    // appBarTheme: AppBarTheme(
-    //   textTheme: TextTheme(
-    //     title: TextStyle(
-    //       fontSize: 18.0,
-    //     ),
-    //   ),
-    //   iconTheme: IconThemeData(
-    //     color: lightAccent,
-    //   ),
-    // ),
+    appBarTheme: AppBarTheme(
+      textTheme: TextTheme(
+        title: TextStyle(
+          fontSize: 18.0,
+        ),
+      ),
+      iconTheme: IconThemeData(
+        color: lightPrimary,
+      ),
+    ),
   );
 }

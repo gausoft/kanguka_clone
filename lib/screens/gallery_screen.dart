@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:kanguka/widgets/appBar.dart';
 
 class GalleryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: appBar('Galerie'),
       body: ListView(
         children: [
           Card(
